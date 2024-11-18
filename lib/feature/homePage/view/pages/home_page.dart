@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:go_router/go_router.dart';
 import 'package:ticket_widget/ticket_widget.dart';
 
 class HomePage extends HookWidget {
@@ -36,7 +37,33 @@ class HomePage extends HookWidget {
       'technology',
     ]);
 
+    ///festival List of Name, date, time and Description
+    final festivalId = useState({
+      'festival1': {
+        "name": "Festival 1",
+        "date": "2023-06-01",
+        "time": "10:00 AM",
+        "description":
+            "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+      },
+      'festival2': {
+        "name": "Festival 2",
+        "date": "2023-06-02",
+        "time": "11:00 AM",
+        "description":
+            "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+      },
+      'festival3': {
+        "name": "Festival 3",
+        "date": "2023-06-03",
+        "time": "12:00 PM",
+        "description":
+            "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+      },
+    });
+
     final selectedFilter = useState<String?>(null);
+    final isFavourite = useState<bool>(false);
     return Scaffold(
       body: LayoutBuilder(builder: (context, constraints) {
         // responsive visible if breakpoint is mobile , tablet , desktop
@@ -181,6 +208,7 @@ class HomePage extends HookWidget {
                                                         CrossAxisAlignment
                                                             .start,
                                                     children: [
+                                                      /// Festival name display here
                                                       Text('Festival Name'),
                                                       Text('Festival Location'),
                                                     ],
@@ -253,6 +281,96 @@ class HomePage extends HookWidget {
                                     ),
                                   );
                                 }),
+                          ),
+                          const Row(
+                            // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text("Explore", style: TextStyle(fontSize: 20)),
+                              // TextButton(
+                              //     onPressed: () {},
+                              //     child: const Text("View All"))
+                            ],
+                          ),
+                          ListView.builder(
+                            shrinkWrap: true,
+                            itemCount: 10,
+                            itemBuilder: (context, index) {
+                              return Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Stack(
+                                  children: [
+                                    GestureDetector(
+                                      onTap: () {
+                                        /// navigate to festival detail page
+                                        context.push('/festival',
+                                            extra: [festivalId]);
+                                      },
+                                      child: Container(
+                                        decoration: const BoxDecoration(
+                                          borderRadius: BorderRadius.all(
+                                              Radius.circular(25)),
+                                          image: DecorationImage(
+                                              image: AssetImage(
+                                                  "assets/images/user.jpg"),
+                                              fit: BoxFit.cover),
+                                        ),
+                                        height: 200,
+                                        width: double.infinity,
+                                      ),
+                                    ),
+                                    Positioned(
+                                        top: 10,
+                                        right: 10,
+                                        child: IconButton(
+                                            onPressed: () {
+                                              /// add and remove from favourite and when click on favourite icon change color
+                                              isFavourite.value =
+                                                  !isFavourite.value;
+                                              if (isFavourite.value) {
+                                                /// add to favourite
+                                              } else {
+                                                /// remove from favourite
+                                              }
+                                            },
+                                            icon: Icon(isFavourite.value
+                                                ? Icons.favorite
+                                                : Icons
+                                                    .favorite_border_outlined))),
+                                    Positioned(
+                                        bottom: 10,
+                                        left: 10,
+                                        right: 10,
+                                        child: Container(
+                                          padding: const EdgeInsets.all(8),
+                                          decoration: const BoxDecoration(
+                                            color: Colors.amber,
+                                            borderRadius: BorderRadius.all(
+                                                Radius.circular(25)),
+                                          ),
+                                          child: const Column(
+                                            mainAxisSize: MainAxisSize.max,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Text("Festival Name"),
+                                              Text("Festival Location"),
+                                              Row(
+                                                mainAxisSize: MainAxisSize.max,
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceBetween,
+                                                children: [
+                                                  Text("Date & Time"),
+                                                  Text(r"$Price"),
+                                                ],
+                                              ),
+                                            ],
+                                          ),
+                                        )),
+                                  ],
+                                ),
+                              );
+                            },
                           ),
 
                           const Text('Home Page'),

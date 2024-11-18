@@ -12,7 +12,7 @@ class ResponsivePage extends StatelessWidget {
     return ResponsiveBreakpoints.builder(
       landscapePlatforms: [
         ResponsiveTargetPlatform.android,
-        ResponsiveTargetPlatform.iOS
+        ResponsiveTargetPlatform.iOS,
       ],
       // Landscape breakpoints
       breakpointsLandscape: [
