@@ -38,7 +38,7 @@ class HomePage extends HookWidget {
     ]);
 
     ///festival List of Name, date, time and Description
-    final festivalId = useState({
+    final festivalId = useState<Map<String, Map<String, String>>>({
       'festival1': {
         "name": "Festival 1",
         "date": "2023-06-01",
@@ -61,6 +61,9 @@ class HomePage extends HookWidget {
             "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
       },
     });
+    final List festivalIdList = ([
+      festivalId.value,
+    ]);
 
     final selectedFilter = useState<String?>(null);
     final isFavourite = useState<bool>(false);
@@ -178,8 +181,10 @@ class HomePage extends HookWidget {
                             child: ListView.builder(
                                 scrollDirection: Axis.horizontal,
                                 shrinkWrap: true,
-                                itemCount: 10,
+                                itemCount: festivalId.value.length,
                                 itemBuilder: (context, index) {
+                                  final festival =
+                                      festivalId.value.values.elementAt(index);
                                   return Padding(
                                     padding: const EdgeInsets.all(8.0),
                                     child: AspectRatio(
@@ -193,24 +198,27 @@ class HomePage extends HookWidget {
                                           mainAxisAlignment:
                                               MainAxisAlignment.spaceBetween,
                                           children: [
-                                            const Expanded(
+                                            Expanded(
                                               child: Row(
                                                 crossAxisAlignment:
                                                     CrossAxisAlignment.start,
                                                 children: [
-                                                  SizedBox(
+                                                  const SizedBox(
                                                       height: 40,
                                                       width: 40,
                                                       child: Placeholder()),
-                                                  SizedBox(width: 16),
+                                                  const SizedBox(width: 16),
                                                   Column(
                                                     crossAxisAlignment:
                                                         CrossAxisAlignment
                                                             .start,
                                                     children: [
                                                       /// Festival name display here
-                                                      Text('Festival Name'),
-                                                      Text('Festival Location'),
+                                                      Text(festival['name'] ??
+                                                          ""),
+                                                      Text(festival[
+                                                              'location'] ??
+                                                          ""),
                                                     ],
                                                   ),
                                                 ],
@@ -231,23 +239,30 @@ class HomePage extends HookWidget {
                                                         MainAxisAlignment
                                                             .spaceBetween,
                                                     children: [
-                                                      const Expanded(
+                                                      Expanded(
                                                         child: Column(
                                                           crossAxisAlignment:
                                                               CrossAxisAlignment
                                                                   .start,
                                                           children: [
-                                                            Text('Time'),
-                                                            Text('10:00 PM'),
+                                                            Text(festival[
+                                                                    'date'] ??
+                                                                ""),
+                                                            Text(festival[
+                                                                    'time'] ??
+                                                                ""),
                                                           ],
                                                         ),
                                                       ),
-                                                      const Expanded(
+                                                      Expanded(
                                                         child:
                                                             Column(children: [
-                                                          Text('Location'),
-                                                          Text(
-                                                              'California, CA'),
+                                                          Text(festival[
+                                                                  'location'] ??
+                                                              ""),
+                                                          Text(festival[
+                                                                  'location'] ??
+                                                              ""),
                                                         ]),
                                                       ),
                                                       Expanded(
@@ -293,8 +308,10 @@ class HomePage extends HookWidget {
                           ),
                           ListView.builder(
                             shrinkWrap: true,
-                            itemCount: 10,
+                            itemCount: festivalId.value.length,
                             itemBuilder: (context, index) {
+                              final festival =
+                                  festivalId.value.values.elementAt(index); //
                               return Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: Stack(
@@ -302,8 +319,7 @@ class HomePage extends HookWidget {
                                     GestureDetector(
                                       onTap: () {
                                         /// navigate to festival detail page
-                                        context.push('/festival',
-                                            extra: [festivalId]);
+                                        context.push('/festival');
                                       },
                                       child: Container(
                                         decoration: const BoxDecoration(
@@ -347,21 +363,22 @@ class HomePage extends HookWidget {
                                             borderRadius: BorderRadius.all(
                                                 Radius.circular(25)),
                                           ),
-                                          child: const Column(
+                                          child: Column(
                                             mainAxisSize: MainAxisSize.max,
                                             crossAxisAlignment:
                                                 CrossAxisAlignment.start,
                                             children: [
-                                              Text("Festival Name"),
-                                              Text("Festival Location"),
+                                              Text(festival['name'] ?? ""),
+                                              Text(festival['location'] ?? ""),
                                               Row(
                                                 mainAxisSize: MainAxisSize.max,
                                                 mainAxisAlignment:
                                                     MainAxisAlignment
                                                         .spaceBetween,
                                                 children: [
-                                                  Text("Date & Time"),
-                                                  Text(r"$Price"),
+                                                  /// display date and time from festivalId
+                                                  Text(festival['date'] ?? ""),
+                                                  Text(festival['time'] ?? ""),
                                                 ],
                                               ),
                                             ],

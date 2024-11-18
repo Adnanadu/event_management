@@ -1,23 +1,68 @@
+import 'package:event_management/core/router/router.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class FestivalDetailsPage extends StatelessWidget {
-  const FestivalDetailsPage({super.key, required String festivalId});
+// final cartProvider = ChangeNotifierProvider((ref) => CartProvider());
+
+class FestivalDetailsPage extends HookConsumerWidget {
+  const FestivalDetailsPage({
+    super.key,
+  });
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Festival Description Page'),
       ),
       body: const SingleChildScrollView(
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             SizedBox(
               child: Image(image: AssetImage("assets/images/user.jpg")),
             ),
-            Text("Festival Name"),
-            Text("Description"),
+            SizedBox(height: 16),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 16.0),
+              child: Row(
+                children: [
+                  Expanded(child: Text("Festival Name & Place")),
+                ],
+              ),
+            ),
+            SizedBox(height: 16),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 16.0),
+              child: Text("Description"),
+            ),
+            SizedBox(height: 16),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 16.0),
+              child: Expanded(child: Text("Descrisdddddddption")),
+            ),
           ],
+        ),
+      ),
+      bottomNavigationBar: Padding(
+        padding: const EdgeInsets.all(16),
+        child: ElevatedButton(
+          style: ElevatedButton.styleFrom(
+            backgroundColor: Colors.blue,
+            foregroundColor: Colors.white,
+            minimumSize: const Size(double.infinity, 48),
+          ),
+          onPressed: () {
+            /// Add to cart
+            // context.read<CartProvider>().addTicketToCart(
+            //       ticketId: "123",
+            //       ticketName: "Ticket Name",
+            //       ticketPrice: 100,
+            //     );
+            context.push("/cart");
+          },
+          child: const Text("Book Now"),
         ),
       ),
     );

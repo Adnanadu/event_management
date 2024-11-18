@@ -1,8 +1,9 @@
 import 'package:event_management/core/router/router.dart';
 import 'package:flutter/material.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 void main() {
-  runApp(const EventManagementApp());
+  runApp(const ProviderScope(child: EventManagementApp()));
 }
 
 class EventManagementApp extends StatelessWidget {
