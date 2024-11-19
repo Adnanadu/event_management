@@ -1,4 +1,5 @@
 import 'package:event_management/core/widgets/elevated_button_customized_widget.dart';
+import 'package:event_management/feature/authPage/view/widgets/text_field_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:go_router/go_router.dart';
@@ -59,33 +60,26 @@ class ProfileFormPage extends HookWidget {
               const SizedBox(height: 24),
 
               // Full Name Field
-              TextField(
+              TextFieldWidget(
                 controller: fullNameController,
-                decoration: const InputDecoration(
-                  labelText: "Full Name",
-                  border: OutlineInputBorder(),
-                ),
+                labelText: "Full Name",
               ),
               const SizedBox(height: 16),
 
               // Nickname Field
-              TextField(
+              TextFieldWidget(
                 controller: nicknameController,
-                decoration: const InputDecoration(
-                  labelText: "Nickname",
-                  border: OutlineInputBorder(),
-                ),
+                labelText: "Nickname",
               ),
+
               const SizedBox(height: 16),
 
               // Date of Birth Field
-              TextField(
+              TextFieldWidget(
                 controller: dateOfBirthController,
-                decoration: const InputDecoration(
-                  labelText: "Date of Birth",
-                  border: OutlineInputBorder(),
-                  suffixIcon: Icon(Icons.calendar_today),
-                ),
+                labelText: "Date of Birth",
+                suffixIcon: const Icon(Icons.calendar_today),
+                keyboardType: TextInputType.datetime,
                 onTap: () async {
                   // Open date picker
                   DateTime? pickedDate = await showDatePicker(
@@ -101,32 +95,27 @@ class ProfileFormPage extends HookWidget {
                 },
                 readOnly: true,
               ),
+
               const SizedBox(height: 16),
 
               // Email Field
-              TextField(
+              TextFieldWidget(
                 controller: emailController,
-                decoration: const InputDecoration(
-                  labelText: "Email",
-                  border: OutlineInputBorder(),
-                  suffixIcon: Icon(Icons.email),
-                ),
+                labelText: "Email",
+                suffixIcon: const Icon(Icons.email),
                 keyboardType: TextInputType.emailAddress,
               ),
               const SizedBox(height: 16),
 
               // Phone Number Field
-              TextField(
+              TextFieldWidget(
                 controller: phoneController,
-                decoration: const InputDecoration(
-                  labelText: "Phone",
-                  border: OutlineInputBorder(),
-                  prefixIcon: Padding(
-                    padding: EdgeInsets.all(12.0),
-                    child: Text(
-                      "+ 91",
-                      style: TextStyle(fontSize: 16),
-                    ),
+                labelText: "Phone",
+                prefixIcon: const Padding(
+                  padding: EdgeInsets.all(12.0),
+                  child: Text(
+                    "+ 91",
+                    style: TextStyle(fontSize: 16),
                   ),
                 ),
                 keyboardType: TextInputType.phone,
@@ -154,24 +143,9 @@ class ProfileFormPage extends HookWidget {
               // Continue Button
               SizedBox(
                 width: double.infinity,
-                // child: ElevatedButton(
-
-                //   onPressed: isFullNameFilled.value
-                //       ? () {
-                //           // Add your verification logic here
-                //           context.push("/otpcode");
-                //         }
-                //       : null,
-                //   style: ElevatedButton.styleFrom(
-                //     backgroundColor: const Color(0xff3062c8),
-                //     padding: const EdgeInsets.symmetric(vertical: 16),
-                //   ),
-                //   child: const Text("Continue"),
-                // ),
                 child: ElevatedButtonCustomizedWidget(
                   onPressed: () {
-                    // if (isFullNameFilled.value) {
-                    // }
+                    // if filled then continue to home page
                     context.push("/homepage");
                   },
                   text: 'Continue',
