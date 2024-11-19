@@ -1,7 +1,10 @@
+import 'package:event_management/feature/favoritePage/view/pages/favorite_page.dart';
+import 'package:event_management/feature/homePage/profile_page/view/pages/profile_page.dart';
+import 'package:event_management/feature/homePage/view/pages/explore_event_widget.dart';
+import 'package:event_management/feature/homePage/view/widgets/ticket_card_widget.dart';
+import 'package:event_management/feature/ticketPage/view/pages/ticket_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:go_router/go_router.dart';
-import 'package:ticket_widget/ticket_widget.dart';
 
 class HomePage extends HookWidget {
   const HomePage({super.key});
@@ -37,28 +40,49 @@ class HomePage extends HookWidget {
       'technology',
     ]);
 
-    ///festival List of Name, date, time and Description
+    ///Map of events and detailes
     final festivalId = useState<Map<String, Map<String, String>>>({
       'festival1': {
+        "id": "123",
+        "image": "assets/images/user.jpg",
+        "category": "music",
         "name": "Festival 1",
         "date": "2023-06-01",
         "time": "10:00 AM",
         "description":
             "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+        "price": "100",
+        "location": "Location 1",
+        "attendees": "100",
+        "ticketType": "Premium",
       },
       'festival2': {
+        "id": "124",
+        "image": "assets/images/user.jpg",
+        "category": "music",
         "name": "Festival 2",
         "date": "2023-06-02",
         "time": "11:00 AM",
         "description":
             "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+        "price": "100",
+        "ticketType": "Premium",
+        "location": "Location 2",
+        "attendees": "100",
       },
       'festival3': {
+        "id": "125",
         "name": "Festival 3",
+        "image": "assets/images/user.jpg",
         "date": "2023-06-03",
         "time": "12:00 PM",
         "description":
             "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+        "price": "100",
+        "ticketType": "Premium",
+        "location": "Location 3",
+        "attendees": "100",
+        "category": "sports",
       },
     });
     final List festivalIdList = ([
@@ -67,6 +91,7 @@ class HomePage extends HookWidget {
 
     final selectedFilter = useState<String?>(null);
     final isFavourite = useState<bool>(false);
+
     return Scaffold(
       body: LayoutBuilder(builder: (context, constraints) {
         // responsive visible if breakpoint is mobile , tablet , desktop
@@ -130,11 +155,13 @@ class HomePage extends HookWidget {
                             backgroundColor:
                                 const WidgetStatePropertyAll(Colors.white),
                             onChanged: (value) {
-                              ///filter the list based on the search text
-                              filterList.value = filterList.value
-                                  .where((element) =>
-                                      element.toLowerCase().contains(value))
-                                  .toList();
+                              /// Implement a search bar to find events by name or location.
+                              // festivalId.value = festivalId.value
+                              //     .where((element) =>
+                              //         element['name']
+                              //             .toLowerCase()
+                              //             .contains(value))
+                              //     .toList();
                             },
                             onSubmitted: (value) {},
                             leading: const Icon(Icons.search),
@@ -175,128 +202,7 @@ class HomePage extends HookWidget {
                           ),
 
                           /// Ticket Card
-                          SizedBox(
-                            width: double.infinity,
-                            height: 180,
-                            child: ListView.builder(
-                                scrollDirection: Axis.horizontal,
-                                shrinkWrap: true,
-                                itemCount: festivalId.value.length,
-                                itemBuilder: (context, index) {
-                                  final festival =
-                                      festivalId.value.values.elementAt(index);
-                                  return Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: AspectRatio(
-                                      aspectRatio: 16 / 9,
-                                      child: TicketWidget(
-                                        width: 0,
-                                        height: 0,
-                                        isCornerRounded: true,
-                                        padding: const EdgeInsets.all(20),
-                                        child: Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            Expanded(
-                                              child: Row(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                children: [
-                                                  const SizedBox(
-                                                      height: 40,
-                                                      width: 40,
-                                                      child: Placeholder()),
-                                                  const SizedBox(width: 16),
-                                                  Column(
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .start,
-                                                    children: [
-                                                      /// Festival name display here
-                                                      Text(festival['name'] ??
-                                                          ""),
-                                                      Text(festival[
-                                                              'location'] ??
-                                                          ""),
-                                                    ],
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            const Divider(
-                                              color: Colors.red,
-                                              height: 1,
-                                            ),
-                                            Expanded(
-                                              child: Column(
-                                                children: [
-                                                  Row(
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .center,
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .spaceBetween,
-                                                    children: [
-                                                      Expanded(
-                                                        child: Column(
-                                                          crossAxisAlignment:
-                                                              CrossAxisAlignment
-                                                                  .start,
-                                                          children: [
-                                                            Text(festival[
-                                                                    'date'] ??
-                                                                ""),
-                                                            Text(festival[
-                                                                    'time'] ??
-                                                                ""),
-                                                          ],
-                                                        ),
-                                                      ),
-                                                      Expanded(
-                                                        child:
-                                                            Column(children: [
-                                                          Text(festival[
-                                                                  'location'] ??
-                                                              ""),
-                                                          Text(festival[
-                                                                  'location'] ??
-                                                              ""),
-                                                        ]),
-                                                      ),
-                                                      Expanded(
-                                                        child: Container(
-                                                          padding:
-                                                              const EdgeInsets
-                                                                  .symmetric(
-                                                                  horizontal: 8,
-                                                                  vertical: 2),
-                                                          decoration:
-                                                              BoxDecoration(
-                                                            color: Colors.green,
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .circular(
-                                                                        10),
-                                                          ),
-                                                          // height: 10,
-                                                          child: const Text(
-                                                              "Premium Ticket x1"),
-                                                        ),
-                                                      )
-                                                    ],
-                                                  ),
-                                                ],
-                                              ),
-                                            )
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                  );
-                                }),
-                          ),
+                          TicketCardWidget(festivalId: festivalId),
                           const Row(
                             // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
@@ -306,89 +212,8 @@ class HomePage extends HookWidget {
                               //     child: const Text("View All"))
                             ],
                           ),
-                          ListView.builder(
-                            shrinkWrap: true,
-                            itemCount: festivalId.value.length,
-                            itemBuilder: (context, index) {
-                              final festival =
-                                  festivalId.value.values.elementAt(index); //
-                              return Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Stack(
-                                  children: [
-                                    GestureDetector(
-                                      onTap: () {
-                                        /// navigate to festival detail page
-                                        context.push('/festival');
-                                      },
-                                      child: Container(
-                                        decoration: const BoxDecoration(
-                                          borderRadius: BorderRadius.all(
-                                              Radius.circular(25)),
-                                          image: DecorationImage(
-                                              image: AssetImage(
-                                                  "assets/images/user.jpg"),
-                                              fit: BoxFit.cover),
-                                        ),
-                                        height: 200,
-                                        width: double.infinity,
-                                      ),
-                                    ),
-                                    Positioned(
-                                        top: 10,
-                                        right: 10,
-                                        child: IconButton(
-                                            onPressed: () {
-                                              /// add and remove from favourite and when click on favourite icon change color
-                                              isFavourite.value =
-                                                  !isFavourite.value;
-                                              if (isFavourite.value) {
-                                                /// add to favourite
-                                              } else {
-                                                /// remove from favourite
-                                              }
-                                            },
-                                            icon: Icon(isFavourite.value
-                                                ? Icons.favorite
-                                                : Icons
-                                                    .favorite_border_outlined))),
-                                    Positioned(
-                                        bottom: 10,
-                                        left: 10,
-                                        right: 10,
-                                        child: Container(
-                                          padding: const EdgeInsets.all(8),
-                                          decoration: const BoxDecoration(
-                                            color: Colors.amber,
-                                            borderRadius: BorderRadius.all(
-                                                Radius.circular(25)),
-                                          ),
-                                          child: Column(
-                                            mainAxisSize: MainAxisSize.max,
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              Text(festival['name'] ?? ""),
-                                              Text(festival['location'] ?? ""),
-                                              Row(
-                                                mainAxisSize: MainAxisSize.max,
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .spaceBetween,
-                                                children: [
-                                                  /// display date and time from festivalId
-                                                  Text(festival['date'] ?? ""),
-                                                  Text(festival['time'] ?? ""),
-                                                ],
-                                              ),
-                                            ],
-                                          ),
-                                        )),
-                                  ],
-                                ),
-                              );
-                            },
-                          ),
+                          ExploreEventWidget(
+                              festivalId: festivalId, isFavourite: isFavourite),
 
                           const Text('Home Page'),
                         ],
@@ -398,37 +223,13 @@ class HomePage extends HookWidget {
                 ),
 
                 /// favourites page
-                const Scaffold(
-                  body: SingleChildScrollView(
-                    child: Column(
-                      children: [
-                        Text('Favourites Page'),
-                      ],
-                    ),
-                  ),
-                ),
+                const FavoritePage(),
 
                 /// tickets page
-                const Scaffold(
-                  body: SingleChildScrollView(
-                    child: Column(
-                      children: [
-                        Text('Tickets Page'),
-                      ],
-                    ),
-                  ),
-                ),
+                const TicketPage(),
 
                 /// profile page
-                const Scaffold(
-                  body: SingleChildScrollView(
-                    child: Column(
-                      children: [
-                        Text('Profile Page'),
-                      ],
-                    ),
-                  ),
-                )
+                const ProfilePage(),
               ],
             ),
             bottomNavigationBar: BottomNavigationBar(

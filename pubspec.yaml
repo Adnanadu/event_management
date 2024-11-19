@@ -43,6 +43,7 @@ dependencies:
   table_calendar: ^3.0.9
   ticket_widget: ^1.0.2
   dashed_line: ^0.1.0+3
+  pin_code_fields: ^8.0.1
 
 dev_dependencies:
   flutter_test:

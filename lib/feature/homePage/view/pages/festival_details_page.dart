@@ -1,4 +1,3 @@
-import 'package:event_management/core/router/router.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -42,6 +41,13 @@ class FestivalDetailsPage extends HookConsumerWidget {
               padding: EdgeInsets.symmetric(horizontal: 16.0),
               child: Expanded(child: Text("Descrisdddddddption")),
             ),
+            SizedBox(height: 16),
+
+            ///Event Location in google Api Integration
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 16.0),
+              child: Text("Event Location"),
+            ),
           ],
         ),
       ),
@@ -55,12 +61,12 @@ class FestivalDetailsPage extends HookConsumerWidget {
           ),
           onPressed: () {
             /// Add to cart
-            // context.read<CartProvider>().addTicketToCart(
+            // context.read<CartProvider>4().addTicketToCart(
             //       ticketId: "123",
             //       ticketName: "Ticket Name",
             //       ticketPrice: 100,
             //     );
-            context.push("/cart");
+            context.push("/dashboard");
           },
           child: const Text("Book Now"),
         ),
