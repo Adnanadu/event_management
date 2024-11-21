@@ -20,8 +20,8 @@ class OtpCodePage extends HookWidget {
           icon: const Icon(Icons.arrow_back, color: Colors.black),
           onPressed: () => Navigator.of(context).pop(),
         ),
-        title:
-            const Text("Create New PIN", style: TextStyle(color: Colors.black)),
+        title: const Text("OTP Verification",
+            style: TextStyle(color: Colors.black)),
       ),
       body: SingleChildScrollView(
         child: Padding(

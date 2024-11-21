@@ -5,7 +5,9 @@ import 'package:event_management/feature/authPage/view/pages/profile_form_page.d
 import 'package:event_management/feature/authPage/view/pages/sign_in_page.dart';
 import 'package:event_management/feature/authPage/view/pages/sign_up.dart';
 import 'package:event_management/feature/favoritePage/view/pages/favorite_page.dart';
-import 'package:event_management/feature/homePage/profile_page/view/pages/profile_page.dart';
+import 'package:event_management/feature/postPage/view/pages/create_event_page.dart';
+import 'package:event_management/feature/postPage/view/pages/post_page.dart';
+import 'package:event_management/feature/profile_page/view/pages/profile_page.dart';
 import 'package:event_management/feature/homePage/view/pages/cart_page.dart';
 import 'package:event_management/feature/homePage/view/pages/festival_details_page.dart';
 import 'package:event_management/feature/homePage/view/pages/home_page.dart';
@@ -13,7 +15,7 @@ import 'package:event_management/feature/ticketPage/view/pages/ticket_page.dart'
 import 'package:go_router/go_router.dart';
 
 final router = GoRouter(
-  initialLocation: '/signin',
+  initialLocation: '/homepage',
   routes: [
     GoRoute(
         path: "/profileform",
@@ -63,6 +65,29 @@ final router = GoRouter(
         path: "/newpassword",
         builder: (context, state) => const CreateNewPasswordPage(),
         name: "newpassword"),
+    GoRoute(
+        path: "/dashboard",
+        builder: (context, state) => const DashboardPage(),
+        name: "dashboard"),
+    GoRoute(
+        path: "/eventpage",
+        builder: (context, state) => const CreateEventPage(),
+        name: "eventpage"),
+    GoRoute(
+        path: "/postpage",
+        builder: (context, state) => const PostPage(),
+        name: "postpage"),
+
+    //Pending Pages
+    // GoRoute(
+    //     path: "/payment",
+    //     builder: (context, state) => const PaymentPage(),
+    //     name: "payment"),
+    // GoRoute(
+    //     path: "/payment-success",
+    //     builder: (context, state) => const PaymentSuccessPage(),
+    //     name: "payment-success"),
+
     // GoRoute(
     //     path: "/intro",
     //     builder: (context, state) => const IntroPage(),

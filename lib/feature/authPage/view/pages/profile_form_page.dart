@@ -61,6 +61,7 @@ class ProfileFormPage extends HookWidget {
 
               // Full Name Field
               TextFieldWidget(
+                enabled: true,
                 controller: fullNameController,
                 labelText: "Full Name",
               ),
@@ -68,6 +69,7 @@ class ProfileFormPage extends HookWidget {
 
               // Nickname Field
               TextFieldWidget(
+                enabled: true,
                 controller: nicknameController,
                 labelText: "Nickname",
               ),
@@ -76,6 +78,7 @@ class ProfileFormPage extends HookWidget {
 
               // Date of Birth Field
               TextFieldWidget(
+                enabled: true,
                 controller: dateOfBirthController,
                 labelText: "Date of Birth",
                 suffixIcon: const Icon(Icons.calendar_today),
@@ -100,6 +103,7 @@ class ProfileFormPage extends HookWidget {
 
               // Email Field
               TextFieldWidget(
+                enabled: true,
                 controller: emailController,
                 labelText: "Email",
                 suffixIcon: const Icon(Icons.email),
@@ -109,6 +113,7 @@ class ProfileFormPage extends HookWidget {
 
               // Phone Number Field
               TextFieldWidget(
+                enabled: true,
                 controller: phoneController,
                 labelText: "Phone",
                 prefixIcon: const Padding(

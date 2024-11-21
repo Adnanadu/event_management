@@ -15,6 +15,7 @@ class ExploreEventWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListView.builder(
       shrinkWrap: true,
+      physics: const NeverScrollableScrollPhysics(),
       itemCount: festivalId.value.length,
       itemBuilder: (context, index) {
         final festival = festivalId.value.values.elementAt(index); //

@@ -124,7 +124,7 @@ class CreateNewPasswordPage extends HookWidget {
             // ),
             ElevatedButtonCustomizedWidget(
               onPressed: () {
-                context.pushNamed("homepage");
+                context.push("/homepage");
               },
               text: 'Continue',
             ),

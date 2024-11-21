@@ -11,7 +11,8 @@ class TicketCardWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
+    return Container(
+      decoration: const BoxDecoration(),
       width: double.infinity,
       height: 180,
       child: ListView.builder(
@@ -50,9 +51,22 @@ class TicketCardWidget extends StatelessWidget {
                           ],
                         ),
                       ),
-                      const Divider(
-                        color: Colors.red,
+
+                      /// ticket line path of middle
+                      Container(
                         height: 1,
+                        color: Colors.transparent,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: List.generate(
+                            15,
+                            (index) => Container(
+                              width: 10, // Width of each dash
+                              height: 1,
+                              color: Colors.red,
+                            ),
+                          ),
+                        ),
                       ),
                       Expanded(
                         child: Column(

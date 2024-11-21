@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 
 class TextFieldWidget extends StatelessWidget {
@@ -10,7 +9,7 @@ class TextFieldWidget extends StatelessWidget {
     this.prefixIcon,
     this.onTap,
     this.keyboardType,
-    this.readOnly,
+    this.readOnly, required bool enabled,
   });
   final TextEditingController controller;
   final String labelText;
@@ -21,18 +20,17 @@ class TextFieldWidget extends StatelessWidget {
   final bool? readOnly;
   @override
   Widget build(BuildContext context) {
-
     return TextField(
-                controller: controller,
-                decoration: InputDecoration(
-                  labelText: labelText,
-                  border: const OutlineInputBorder(),
-                  suffixIcon: suffixIcon,
-                  prefixIcon: prefixIcon,
-                ),
-                onTap: onTap,
-                keyboardType: keyboardType,
-                readOnly: readOnly ?? false,
-              );
+      controller: controller,
+      decoration: InputDecoration(
+        labelText: labelText,
+        border: const OutlineInputBorder(),
+        suffixIcon: suffixIcon,
+        prefixIcon: prefixIcon,
+      ),
+      onTap: onTap,
+      keyboardType: keyboardType,
+      readOnly: readOnly ?? false,
+    );
   }
 }
