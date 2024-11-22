@@ -66,14 +66,14 @@ class ProfilePage extends HookWidget {
                 controller: fullNameController,
                 isEditing: isEditing.value,
               ),
-              const SizedBox(height: 16),
+              const SizedBox(height: 8),
               ProfileField(
                 label: "User Name",
                 controller: usernameController,
                 isEditing: isEditing.value,
               ),
 
-              const SizedBox(height: 16),
+              const SizedBox(height: 8),
 
               // Date of Birtgh Field
               ProfileField(
@@ -97,15 +97,14 @@ class ProfilePage extends HookWidget {
                       }
                     : null,
               ),
-              const SizedBox(height: 16),
-
+              const SizedBox(height: 8),
               // Email Field
               ProfileField(
                 label: "Email",
                 controller: emailController,
                 isEditing: isEditing.value,
               ),
-              const SizedBox(height: 16),
+              const SizedBox(height: 8),
 
               // Phone Number Field
               ProfileField(
@@ -113,7 +112,7 @@ class ProfilePage extends HookWidget {
                 controller: phoneController,
                 isEditing: isEditing.value,
               ),
-              const SizedBox(height: 16),
+              const SizedBox(height: 8),
               isEditing.value
                   ? DropdownButtonFormField<String>(
                       focusColor: Colors.transparent,

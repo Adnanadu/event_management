@@ -1,16 +1,18 @@
 # event_management
 
-A new Flutter project.
+#Pending Works
 
-## Getting Started
+User Dashboard:
 
-This project is a starting point for a Flutter application.
+    Display a list of events the user has registered for and events they have created.
+    Allow users to:
+    Cancel their registrations.
+    Edit or delete events they created.
 
-A few resources to get you started if this is your first Flutter project:
+Backend
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+Image Picker
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Camera 
+
+Authentication

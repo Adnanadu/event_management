@@ -1,7 +1,7 @@
 import 'package:event_management/feature/homePage/model/event_model.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-final eventProvider =
-    StateNotifierProvider<EventNotifier, List<EventModel>>(
+
+final eventProvider = StateNotifierProvider<EventNotifier, List<EventModel>>(
   (ref) => EventNotifier(),
 );
 
@@ -20,6 +20,7 @@ class EventNotifier extends StateNotifier<List<EventModel>> {
             'price': '100',
             'location': 'Location 1',
             'attendees': '100',
+            "organizer name": "John Doe",
           }),
           EventModel.fromJson({
             'id': '124',
@@ -48,5 +49,4 @@ class EventNotifier extends StateNotifier<List<EventModel>> {
             'attendees': '100',
           }),
         ]);
-
 }

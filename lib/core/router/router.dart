@@ -5,11 +5,13 @@ import 'package:event_management/feature/authPage/view/pages/profile_form_page.d
 import 'package:event_management/feature/authPage/view/pages/sign_in_page.dart';
 import 'package:event_management/feature/authPage/view/pages/sign_up.dart';
 import 'package:event_management/feature/favoritePage/view/pages/favorite_page.dart';
+import 'package:event_management/feature/homePage/model/event_model.dart';
+import 'package:event_management/feature/homePage/view/pages/cart_page.dart';
+import 'package:event_management/feature/homePage/view/pages/event_details_page.dart';
 import 'package:event_management/feature/postPage/view/pages/create_event_page.dart';
 import 'package:event_management/feature/postPage/view/pages/post_page.dart';
 import 'package:event_management/feature/profile_page/view/pages/profile_page.dart';
-import 'package:event_management/feature/homePage/view/pages/cart_page.dart';
-import 'package:event_management/feature/homePage/view/pages/festival_details_page.dart';
+import 'package:event_management/feature/dashboardPage/view/pages/dashboard_page.dart';
 import 'package:event_management/feature/homePage/view/pages/home_page.dart';
 import 'package:event_management/feature/ticketPage/view/pages/ticket_page.dart';
 import 'package:go_router/go_router.dart';
@@ -26,13 +28,16 @@ final router = GoRouter(
         builder: (context, state) => const HomePage(),
         name: "homepage"),
     GoRoute(
-        path: '/festival',
-        builder: (context, state) => const FestivalDetailsPage(),
-        name: "festival"),
+        path: '/eventdetails',
+        builder: (context, state) => EventDetailsPage(
+              ///pass event
+              event: state.extra as EventModel,
+            ),
+        name: "eventdetails"),
     GoRoute(
-        path: '/cart',
+        path: '/dashboard',
         builder: (context, state) => const DashboardPage(),
-        name: "cart"),
+        name: "dashboard"),
     GoRoute(
         path: "/profile",
         builder: (context, state) => const ProfilePage(),
@@ -65,10 +70,10 @@ final router = GoRouter(
         path: "/newpassword",
         builder: (context, state) => const CreateNewPasswordPage(),
         name: "newpassword"),
-    GoRoute(
-        path: "/dashboard",
-        builder: (context, state) => const DashboardPage(),
-        name: "dashboard"),
+    // GoRoute(
+    //     path: "/dashboard",
+    //     builder: (context, state) => const DashboardPage(),
+    //     name: "dashboard"),
     GoRoute(
         path: "/eventpage",
         builder: (context, state) => const CreateEventPage(),
@@ -77,6 +82,10 @@ final router = GoRouter(
         path: "/postpage",
         builder: (context, state) => const PostPage(),
         name: "postpage"),
+    GoRoute(
+        path: "/cartpage",
+        builder: (context, state) => const CartPage(),
+        name: "cartpage"),
 
     //Pending Pages
     // GoRoute(

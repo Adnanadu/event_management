@@ -35,8 +35,9 @@ class ExploreEventWidget extends HookConsumerWidget {
                   children: [
                     GestureDetector(
                       onTap: () {
-                        /// navigate to festival detail page
-                        context.push('/festival');
+                        /// navigate to event description page
+                        final event = ref.read(eventProvider)[index];
+                        context.push('/eventdetails', extra: event);
                       },
                       child: Container(
                         decoration: const BoxDecoration(
@@ -60,6 +61,7 @@ class ExploreEventWidget extends HookConsumerWidget {
                                     .state
                                     .remove(index);
                                 // isFavorite.remove(index);
+                                
                               } else {
                                 ref
                                     .read(isFavoriteProvider.notifier)

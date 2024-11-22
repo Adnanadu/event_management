@@ -35,12 +35,12 @@ class CreateEventPage extends HookWidget {
                   // Logic for selecting an image
                 },
                 child: Container(
-                  width: 100,
-                  height: 100,
+                  width: double.infinity,
+                  height: 200,
                   decoration: BoxDecoration(
                     border: Border.all(color: Colors.grey),
                   ),
-                  child: const Icon(Icons.camera_alt, color: Colors.grey),
+                  child: const Icon(Icons.image, color: Colors.grey),
                 ),
               ),
             ),
@@ -202,33 +202,13 @@ class CreateEventPage extends HookWidget {
               isExpanded: true,
             ),
             const SizedBox(height: 8),
-
-            /// add price provider
-
-            // const SizedBox(height: 24),
-
             ElevatedButtonCustomizedWidget(
               onPressed: () {},
-              text: "List",
+              text: "Post Event",
               foregroundColor: Colors.white,
             ),
 
             const SizedBox(height: 8),
-            OutlinedButton(
-              style: OutlinedButton.styleFrom(
-                foregroundColor: Colors.blue,
-
-                minimumSize:
-                    const Size(double.infinity, 56), // button text color
-                textStyle: const TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold), // increase font size
-              ),
-              onPressed: () {
-                // button press handler
-              },
-              child: const Text('Post'),
-            ),
           ],
         ),
       ),

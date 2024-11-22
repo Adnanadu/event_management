@@ -1,52 +1,53 @@
+import 'package:event_management/feature/homePage/model/event_model.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-// final cartProvider = ChangeNotifierProvider((ref) => CartProvider());
-
-class FestivalDetailsPage extends HookConsumerWidget {
-  const FestivalDetailsPage({
+class EventDetailsPage extends HookConsumerWidget {
+  final EventModel event;
+  const EventDetailsPage({
     super.key,
+    required this.event,
   });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Festival Description Page'),
+        title: const Text('Event Description Page'),
       ),
-      body: const SingleChildScrollView(
+      body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SizedBox(
+            const SizedBox(
               child: Image(image: AssetImage("assets/images/user.jpg")),
             ),
-            SizedBox(height: 16),
+            const SizedBox(height: 16),
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: 16.0),
+              padding: const EdgeInsets.symmetric(horizontal: 16.0),
               child: Row(
                 children: [
-                  Expanded(child: Text("Festival Name & Place")),
+                  Expanded(child: Text("${event.name} ${event.location}")),
                 ],
               ),
             ),
-            SizedBox(height: 16),
-            Padding(
+            const SizedBox(height: 16),
+            const Padding(
               padding: EdgeInsets.symmetric(horizontal: 16.0),
               child: Text("Description"),
             ),
-            SizedBox(height: 16),
+            const SizedBox(height: 16),
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: 16.0),
-              child: Expanded(child: Text("Descrisdddddddption")),
+              padding: const EdgeInsets.symmetric(horizontal: 16.0),
+              child: Expanded(child: Text(event.description)),
             ),
-            SizedBox(height: 16),
+            const SizedBox(height: 16),
 
             ///Event Location in google Api Integration
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: 16.0),
-              child: Text("Event Location"),
+              padding: const EdgeInsets.symmetric(horizontal: 16.0),
+              child: Text(event.location),
             ),
           ],
         ),
@@ -61,12 +62,8 @@ class FestivalDetailsPage extends HookConsumerWidget {
           ),
           onPressed: () {
             /// Add to cart
-            // context.read<CartProvider>4().addTicketToCart(
-            //       ticketId: "123",
-            //       ticketName: "Ticket Name",
-            //       ticketPrice: 100,
-            //     );
-            context.push("/dashboard");
+
+            context.push("/cartpage");
           },
           child: const Text("Book Now"),
         ),

@@ -22,17 +22,11 @@ class TextFieldWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextField(
-      
       controller: controller,
       decoration: InputDecoration(
         floatingLabelStyle: const TextStyle(color: Color(0xff246afd)),
         labelText: labelText,
-        border: OutlineInputBorder(
-          
-          
-          
-        ),
-        
+        border: const OutlineInputBorder(),
         suffixIcon: suffixIcon,
         prefixIcon: prefixIcon,
       ),

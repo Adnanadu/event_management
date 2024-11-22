@@ -1,8 +1,8 @@
 import 'package:event_management/feature/favoritePage/view/pages/favorite_page.dart';
+import 'package:event_management/feature/dashboardPage/view/pages/dashboard_page.dart';
 import 'package:event_management/feature/homePage/view/pages/home_feed_page.dart';
 import 'package:event_management/feature/postPage/view/pages/post_page.dart';
 import 'package:event_management/feature/profile_page/view/pages/profile_page.dart';
-import 'package:event_management/feature/ticketPage/view/pages/ticket_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -67,7 +67,7 @@ class HomePage extends HookConsumerWidget {
               const PostPage(),
 
               /// tickets page
-              const TicketPage(),
+              const DashboardPage(),
 
               /// profile page
               const ProfilePage(),
@@ -83,7 +83,8 @@ class HomePage extends HookConsumerWidget {
                   icon: Icon(Icons.favorite), label: 'Favourites'),
               BottomNavigationBarItem(
                   icon: Icon(Icons.add_circle_outline_outlined), label: 'Post'),
-              BottomNavigationBarItem(icon: Icon(Icons.book), label: 'Tickets'),
+              BottomNavigationBarItem(
+                  icon: Icon(Icons.dashboard_outlined), label: 'Dashboard'),
               BottomNavigationBarItem(
                   icon: Icon(Icons.person), label: 'Profile'),
             ],
