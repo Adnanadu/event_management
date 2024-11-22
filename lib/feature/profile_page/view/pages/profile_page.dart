@@ -1,3 +1,4 @@
+import 'package:event_management/feature/profile_page/view/widgets/profile_field_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:go_router/go_router.dart';
@@ -8,12 +9,12 @@ class ProfilePage extends HookWidget {
   @override
   Widget build(BuildContext context) {
     // Controllers
-    final fullNameController = useTextEditingController(text: "John Doe");
-    final nicknameController = useTextEditingController(text: "Johnny");
-    final dateOfBirthController = useTextEditingController(text: "1990-01-01");
-    final emailController =
-        useTextEditingController(text: "john.doe@example.com");
-    final phoneController = useTextEditingController(text: "1234567890");
+    final fullNameController = useTextEditingController();
+    final usernameController = useTextEditingController();
+    final dateOfBirthController = useTextEditingController();
+    final emailController = useTextEditingController();
+    final phoneController = useTextEditingController();
+    final gender = useState<String>('Select Gender');
 
     // Editable state
     final isEditing = useState(false);
@@ -24,7 +25,7 @@ class ProfilePage extends HookWidget {
         backgroundColor: Colors.white,
         leading: IconButton(
           icon: const Icon(Icons.arrow_back, color: Colors.black),
-          onPressed: () => context.pop(),
+          onPressed: () => context.pushReplacement("/homepage"),
         ),
         title: const Text("Profile", style: TextStyle(color: Colors.black)),
         actions: [
@@ -60,37 +61,38 @@ class ProfilePage extends HookWidget {
               const SizedBox(height: 24),
 
               // Full Name Field
-              buildProfileField(
+              ProfileField(
                 label: "Full Name",
                 controller: fullNameController,
                 isEditing: isEditing.value,
               ),
               const SizedBox(height: 16),
-
-              // Nickname Field
-              buildProfileField(
-                label: "Nickname",
-                controller: nicknameController,
+              ProfileField(
+                label: "User Name",
+                controller: usernameController,
                 isEditing: isEditing.value,
               ),
+
               const SizedBox(height: 16),
 
-              // Date of Birth Field
-              buildProfileField(
+              // Date of Birtgh Field
+              ProfileField(
                 label: "Date of Birth",
                 controller: dateOfBirthController,
                 isEditing: isEditing.value,
                 onTap: isEditing.value
                     ? () async {
-                        DateTime? pickedDate = await showDatePicker(
+                        final selectedDOB = await showDatePicker(
                           context: context,
                           initialDate: DateTime.now(),
                           firstDate: DateTime(1930),
                           lastDate: DateTime.now(),
                         );
-                        if (pickedDate != null) {
+                        if (selectedDOB != null && context.mounted) {
+                          ///formated DOB
                           dateOfBirthController.text =
-                              "${pickedDate.toLocal()}".split(' ')[0];
+                              MaterialLocalizations.of(context)
+                                  .formatCompactDate(selectedDOB);
                         }
                       }
                     : null,
@@ -98,7 +100,7 @@ class ProfilePage extends HookWidget {
               const SizedBox(height: 16),
 
               // Email Field
-              buildProfileField(
+              ProfileField(
                 label: "Email",
                 controller: emailController,
                 isEditing: isEditing.value,
@@ -106,90 +108,58 @@ class ProfilePage extends HookWidget {
               const SizedBox(height: 16),
 
               // Phone Number Field
-              buildProfileField(
-                label: "Phone",
+              ProfileField(
+                label: "Phone Number",
                 controller: phoneController,
                 isEditing: isEditing.value,
               ),
               const SizedBox(height: 16),
-
-              // Gender Dropdown
-              DropdownButtonFormField<String>(
-                decoration: const InputDecoration(
-                  labelText: "Gender",
-                  border: OutlineInputBorder(),
-                ),
-                items: ["Male", "Female"]
-                    .map((gender) => DropdownMenuItem(
-                          value: gender,
-                          child: Text(gender),
-                        ))
-                    .toList(),
-                onChanged: isEditing.value
-                    ? (value) {
-                        // Handle gender selection
-                      }
-                    : null,
-              ),
+              isEditing.value
+                  ? DropdownButtonFormField<String>(
+                      focusColor: Colors.transparent,
+                      dropdownColor: Colors.white,
+                      elevation: 1,
+                      style: const TextStyle(color: Colors.black),
+                      autofocus: false,
+                      isDense: true,
+                      value: gender.value,
+                      onChanged: (value) {
+                        if (value != null) {
+                          gender.value = value;
+                        }
+                      },
+                      items: <String>[
+                        'Select Gender',
+                        'Male',
+                        'Female',
+                      ].map<DropdownMenuItem<String>>((String value) {
+                        return DropdownMenuItem<String>(
+                          value: value,
+                          child: Text(value),
+                        );
+                      }).toList(),
+                      isExpanded: true,
+                    )
+                  : Container(
+                      width: double.infinity,
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 12.0, horizontal: 8.0),
+                      decoration: BoxDecoration(
+                        // border: Border.all(color: Colors.grey),
+                        borderRadius: BorderRadius.circular(4.0),
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text("Gender  :   ${gender.value}"),
+                        ],
+                      ),
+                    ),
               const SizedBox(height: 24),
-
-              // Continue Button
-              SizedBox(
-                width: double.infinity,
-                child: ElevatedButton(
-                  onPressed: () {
-                    // if filled then continue to home page
-                    // context.push("homepage");
-                  },
-                  child: const Text('Continue'),
-                ),
-              ),
             ],
           ),
         ),
       ),
-    );
-  }
-
-  Widget buildProfileField({
-    required String label,
-    required TextEditingController controller,
-    required bool isEditing,
-    VoidCallback? onTap,
-  }) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        // Text(label),
-        const SizedBox(height: 8),
-        isEditing
-            ? TextField(
-                controller: controller,
-                onTap: onTap,
-                decoration: InputDecoration(
-                  border: const OutlineInputBorder(),
-                  labelText: label,
-                ),
-              )
-            : GestureDetector(
-                onTap: onTap,
-                child: Container(
-                  width: double.infinity,
-                  padding: const EdgeInsets.symmetric(
-                      vertical: 12.0, horizontal: 8.0),
-                  decoration: BoxDecoration(
-                    // border: Border.all(color: Colors.grey),
-                    borderRadius: BorderRadius.circular(4.0),
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text("$label  :   ${controller.text}"),
-                    ],
-                  ),
-                ),
-              ),
-      ],
     );
   }
 }

@@ -14,39 +14,22 @@ class PostPage extends StatelessWidget {
             children: [
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 1),
-                child: Row(
-                  // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Flexible(
-                      child: AspectRatio(
-                        aspectRatio: 9 / 16,
-                        child: Container(
-                          decoration: const BoxDecoration(
-                            color: Colors.red,
-                            // borderRadius: BorderRadius.circular(8),
-                          ),
-                        ),
+
+                /// camera view
+                child: Flexible(
+                  child: AspectRatio(
+                    aspectRatio: 1,
+                    child: Container(
+                      decoration: const BoxDecoration(
+                        color: Colors.red,
+                        // borderRadius: BorderRadius.circular(8),
                       ),
                     ),
-                    const SizedBox(
-                      width: 1,
-                    ),
-                    // const SizedBoxW(
-                    //     size: BoxSize.s), // Spacing between containers
-                    Flexible(
-                      child: AspectRatio(
-                        aspectRatio: 9 / 16,
-                        child: Container(
-                          decoration: const BoxDecoration(
-                            color: Colors.red,
-                            // borderRadius: BorderRadius.circular(8),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
+                  ),
                 ),
               ),
+
+              /// Gallery view
               GridView.builder(
                 physics: const NeverScrollableScrollPhysics(),
                 shrinkWrap: true,

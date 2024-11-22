@@ -1,16 +1,18 @@
+import 'package:event_management/feature/homePage/controller/event_notifier_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:ticket_widget/ticket_widget.dart';
 
-class TicketCardWidget extends StatelessWidget {
+class TicketCardWidget extends HookConsumerWidget {
   const TicketCardWidget({
     super.key,
-    required this.festivalId,
   });
 
-  final ValueNotifier<Map<String, Map<String, String>>> festivalId;
+  // final ValueNotifier<Map<String, Map<String, String>>> festivalId;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    // final eventNotifier = ref.watch(eventProvider.notifier);
     return Container(
       decoration: const BoxDecoration(),
       width: double.infinity,
@@ -18,9 +20,9 @@ class TicketCardWidget extends StatelessWidget {
       child: ListView.builder(
           scrollDirection: Axis.horizontal,
           shrinkWrap: true,
-          itemCount: festivalId.value.length,
+          itemCount: ref.read(eventProvider).length,
           itemBuilder: (context, index) {
-            final festival = festivalId.value.values.elementAt(index);
+            // final festival = ref.watch(eventProvider).values.elementAt(index);
             return Padding(
               padding: const EdgeInsets.all(8.0),
               child: AspectRatio(
@@ -44,8 +46,10 @@ class TicketCardWidget extends StatelessWidget {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 /// Festival name display here
-                                Text(festival['name'] ?? ""),
-                                Text(festival['location'] ?? ""),
+                                // Text(ref.watch(eventProvider).values.elementAt(index)['name'] ?? ""),
+                                // Text(ref.watch(eventProvider).values.elementAt(index)['location'] ?? ""),
+                                Text(ref.read(eventProvider)[index].name),
+                                Text(ref.read(eventProvider)[index].location),
                               ],
                             ),
                           ],
@@ -80,29 +84,33 @@ class TicketCardWidget extends StatelessWidget {
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
-                                      Text(festival['date'] ?? ""),
-                                      Text(festival['time'] ?? ""),
+                                      Text(ref.read(eventProvider)[index].date),
+                                      Text(ref.read(eventProvider)[index].time),
                                     ],
                                   ),
                                 ),
                                 Expanded(
                                   child: Column(children: [
-                                    Text(festival['location'] ?? ""),
-                                    Text(festival['location'] ?? ""),
+                                    Text(ref
+                                        .read(eventProvider)[index]
+                                        .location),
+                                    // Text(ref
+                                    //     .read(eventProvider)[index]
+                                    //     .location),
                                   ]),
                                 ),
-                                Expanded(
-                                  child: Container(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 8, vertical: 2),
-                                    decoration: BoxDecoration(
-                                      color: Colors.green,
-                                      borderRadius: BorderRadius.circular(10),
-                                    ),
-                                    // height: 10,
-                                    child: const Text("Premium Ticket x1"),
-                                  ),
-                                )
+                                // Expanded(
+                                //   child: Container(
+                                //     padding: const EdgeInsets.symmetric(
+                                //         horizontal: 8, vertical: 2),
+                                //     decoration: BoxDecoration(
+                                //       color: Colors.green,
+                                //       borderRadius: BorderRadius.circular(10),
+                                //     ),
+                                //     // height: 10,
+                                //     child: const Text("Premium Ticket x1"),
+                                //   ),
+                                // )
                               ],
                             ),
                           ],

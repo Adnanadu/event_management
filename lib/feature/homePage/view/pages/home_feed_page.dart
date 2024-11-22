@@ -1,25 +1,27 @@
+import 'package:event_management/feature/homePage/controller/event_notifier_controller.dart';
 import 'package:event_management/feature/homePage/view/pages/explore_event_widget.dart';
 import 'package:event_management/feature/homePage/view/widgets/ticket_card_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class HomeFeedPage extends StatelessWidget {
+class HomeFeedPage extends HookConsumerWidget {
   const HomeFeedPage({
     super.key,
     required this.textController,
     required this.filterList,
     required this.selectedFilter,
-    required this.festivalId,
-    required this.isFavourite,
   });
 
   final TextEditingController textController;
   final ValueNotifier<List<String>> filterList;
   final ValueNotifier<String?> selectedFilter;
-  final ValueNotifier<Map<String, Map<String, String>>> festivalId;
-  final ValueNotifier<bool> isFavourite;
+
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    // final eventNotifier = ref.watch(eventProvider.notifier);
+    /// isfavroite is a state provider that allows the user to toggle the favorite status of an event
+
     return Scaffold(
       backgroundColor: Colors.black54,
       appBar: AppBar(
@@ -71,13 +73,8 @@ class HomeFeedPage extends StatelessWidget {
                     EdgeInsets.symmetric(horizontal: 16)),
                 backgroundColor: const WidgetStatePropertyAll(Colors.white),
                 onChanged: (value) {
-                  /// Implement a search bar to find events by name or location.
-                  // festivalId.value = festivalId.value
-                  //     .where((element) =>
-                  //         element['name']
-                  //             .toLowerCase()
-                  //             .contains(value))
-                  //     .toList();
+                  /// search event by name or location
+                  // eventNotifier.searchEvents(value); // Corrected method name
                 },
                 onSubmitted: (value) {},
                 leading: const Icon(Icons.search),
@@ -90,7 +87,8 @@ class HomeFeedPage extends StatelessWidget {
                 child: ListView.builder(
                   shrinkWrap: true,
                   scrollDirection: Axis.horizontal,
-                  itemCount: filterList.value.length,
+                  // itemCount: filterList.value.length,
+                  itemCount: ref.watch(eventProvider).length,
                   itemBuilder: (BuildContext context, int index) {
                     return Padding(
                       padding: const EdgeInsets.symmetric(
@@ -120,10 +118,9 @@ class HomeFeedPage extends StatelessWidget {
               ),
 
               /// Ticket Card
-              TicketCardWidget(festivalId: festivalId),
+              const TicketCardWidget(),
               const Text("Explore", style: TextStyle(fontSize: 20)),
-              ExploreEventWidget(
-                  festivalId: festivalId, isFavourite: isFavourite),
+              const ExploreEventWidget(),
 
               const Text('Home Page'),
             ],

@@ -9,7 +9,8 @@ class TextFieldWidget extends StatelessWidget {
     this.prefixIcon,
     this.onTap,
     this.keyboardType,
-    this.readOnly, required bool enabled,
+    this.readOnly,
+    required bool enabled,
   });
   final TextEditingController controller;
   final String labelText;
@@ -21,10 +22,17 @@ class TextFieldWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextField(
+      
       controller: controller,
       decoration: InputDecoration(
+        floatingLabelStyle: const TextStyle(color: Color(0xff246afd)),
         labelText: labelText,
-        border: const OutlineInputBorder(),
+        border: OutlineInputBorder(
+          
+          
+          
+        ),
+        
         suffixIcon: suffixIcon,
         prefixIcon: prefixIcon,
       ),

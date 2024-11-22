@@ -1,6 +1,7 @@
 import 'package:event_management/feature/homePage/model/event_model.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+///Event Provider To Ui
 final eventProvider =
     StateNotifierProvider<EventNotifier, List<EventModel>>(
   (ref) => EventNotifier(),

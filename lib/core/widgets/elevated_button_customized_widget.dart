@@ -28,7 +28,8 @@ class ElevatedButtonCustomizedWidget extends StatelessWidget {
         ),
         padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 15),
       ),
-      child: Text(text),
+      child: Text(text,
+          style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
     );
   }
 }

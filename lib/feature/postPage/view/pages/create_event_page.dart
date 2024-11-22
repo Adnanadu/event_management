@@ -7,21 +7,18 @@ class CreateEventPage extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
+    /// Controllers
     final titleController = useTextEditingController();
     final descriptionController = useTextEditingController();
     final dateController = useTextEditingController();
     final timeController = useTextEditingController();
+
     ///price state
     final selectedPrice = useState<double>(100.0);
     const minPrice = 100.0;
     const maxPrice = 1000.0;
     final attendeesCount = useState<int>(100);
-    // final keywordsController = useTextEditingController();
-
-    // Dropdown values
     final category = useState<String>('Select Category');
-
-    // final swapOption = useState<String>('Select Option');
 
     return Scaffold(
       appBar: AppBar(
@@ -52,6 +49,10 @@ class CreateEventPage extends HookWidget {
             TextField(
               controller: titleController,
               decoration: const InputDecoration(
+                floatingLabelStyle: TextStyle(color: Color(0xff246afd)),
+                focusedBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Color(0xff246afd)),
+                ),
                 labelText: 'Event Name',
                 border: OutlineInputBorder(),
               ),
@@ -62,11 +63,23 @@ class CreateEventPage extends HookWidget {
             TextField(
               controller: descriptionController,
               decoration: const InputDecoration(
+                floatingLabelStyle: TextStyle(color: Color(0xff246afd)),
                 labelText: 'Description',
-                border: OutlineInputBorder(),
+                alignLabelWithHint: true,
+                border: OutlineInputBorder(
+                    // borderSide: BorderSide(color: Colors.grey),
+                    ),
+                focusedBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Color(0xff246afd)),
+                ),
               ),
               maxLength: 256,
               maxLines: 4,
+              buildCounter: (context,
+                      {required currentLength,
+                      required isFocused,
+                      maxLength}) =>
+                  null,
             ),
             const SizedBox(height: 8),
 
@@ -75,15 +88,20 @@ class CreateEventPage extends HookWidget {
                 readOnly: true,
                 controller: dateController,
                 decoration: const InputDecoration(
-                    labelText: 'Date', border: InputBorder.none),
+                    floatingLabelStyle: TextStyle(color: Color(0xff246afd)),
+                    labelText: 'Date',
+                    border: InputBorder.none),
                 onTap: () async {
                   final selectedDate = await showDatePicker(
                       context: context,
                       initialDate: DateTime.now(),
                       firstDate: DateTime.now(),
                       lastDate: DateTime.now().add(const Duration(days: 365)));
-                  if (selectedDate != null) {
-                    dateController.text = selectedDate.toString().split(' ')[0];
+                  if (selectedDate != null && context.mounted) {
+                    final formattedDate = MaterialLocalizations.of(context)
+                        .formatCompactDate(selectedDate);
+                    // dateController.text = selectedDate.toString().split(' ')[0];
+                    dateController.text = formattedDate;
                   }
                 }),
             const SizedBox(height: 8),
@@ -93,7 +111,9 @@ class CreateEventPage extends HookWidget {
               controller: timeController,
 
               decoration: const InputDecoration(
-                  labelText: 'Time', border: InputBorder.none),
+                  floatingLabelStyle: TextStyle(color: Color(0xff246afd)),
+                  labelText: 'Time',
+                  border: InputBorder.none),
               readOnly: true, // Prevent manual input
               onTap: () async {
                 final selectedTime = await showTimePicker(
@@ -157,11 +177,10 @@ class CreateEventPage extends HookWidget {
             DropdownButton<String>(
               focusColor: Colors.transparent,
               dropdownColor: Colors.white,
-              elevation: 0,
+              elevation: 1,
               style: const TextStyle(color: Colors.black),
               underline: const SizedBox(),
               autofocus: false,
-              // isExpanded: true,
               isDense: true,
               value: category.value,
               onChanged: (value) {
@@ -186,7 +205,7 @@ class CreateEventPage extends HookWidget {
 
             /// add price provider
 
-            const SizedBox(height: 24),
+            // const SizedBox(height: 24),
 
             ElevatedButtonCustomizedWidget(
               onPressed: () {},
@@ -201,7 +220,9 @@ class CreateEventPage extends HookWidget {
 
                 minimumSize:
                     const Size(double.infinity, 56), // button text color
-                textStyle: const TextStyle(fontSize: 18), // increase font size
+                textStyle: const TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold), // increase font size
               ),
               onPressed: () {
                 // button press handler
