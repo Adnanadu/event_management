@@ -17,7 +17,7 @@ import 'package:event_management/feature/ticketPage/view/pages/ticket_page.dart'
 import 'package:go_router/go_router.dart';
 
 final router = GoRouter(
-  initialLocation: '/homepage',
+  initialLocation: '/signin',
   routes: [
     GoRoute(
         path: "/profileform",
