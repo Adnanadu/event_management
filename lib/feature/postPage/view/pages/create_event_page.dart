@@ -4,6 +4,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 
 class CreateEventPage extends HookWidget {
   const CreateEventPage({super.key});
+  static String routePath = "/createeventpage";
 
   @override
   Widget build(BuildContext context) {

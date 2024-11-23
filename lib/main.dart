@@ -7,7 +7,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
-    options: Defaulgit tFirebaseOptions.currentPlatform,
+    options: DefaultFirebaseOptions.currentPlatform,
   );
 
   runApp(const ProviderScope(child: EventManagementApp()));
@@ -15,6 +15,9 @@ void main() async {
 
 class EventManagementApp extends StatelessWidget {
   const EventManagementApp({super.key});
+  static final navigatorkey = GlobalKey<NavigatorState>();
+  static final scaffoldGeometryKey = GlobalKey<ScaffoldMessengerState>();
+  static final scaffoldMessengerKey = GlobalKey<ScaffoldMessengerState>();
 
   @override
   Widget build(BuildContext context) {

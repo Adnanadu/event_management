@@ -1,19 +1,47 @@
 import 'package:event_management/core/widgets/elevated_button_customized_widget.dart';
+import 'package:event_management/feature/authPage/controller/auth_controller.dart';
+import 'package:event_management/feature/authPage/view/pages/sign_up.dart';
 import 'package:event_management/feature/authPage/view/widgets/via_social_media_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:go_router/go_router.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class SignInPage extends HookWidget {
+class SignInPage extends HookConsumerWidget {
+  static const routePath = '/signin';
+
   const SignInPage({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final emailController = useTextEditingController();
     final passwordController = useTextEditingController();
     final isPasswordVisible = useState(false);
     final rememberMe = useState(false);
 
+    /// callback to execute when the sign in button is pressed
+    void onSignUpButtonPressed() {
+      context.go(SignUpPage.routePath);
+    }
+
+    /// callback to execute when the sign in button is pressed
+
+    void onLogInButtonPressed() {
+      final email = emailController.text;
+      final password = passwordController.text;
+      ref.read(authControllerProvider.notifier).login(
+            email: email,
+            password: password,
+          );
+    }
+
+    ///callback to execute when the forgot password in button is pressed
+    void onForgotPasswordButtonPressed() {
+      final email = emailController.text;
+      ref.read(authControllerProvider.notifier).forgotPassword(email: email);
+    }
+
+    ///
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 24.0),
@@ -74,10 +102,7 @@ class SignInPage extends HookWidget {
                   ),
                   Expanded(
                     child: GestureDetector(
-                      onTap: () {
-                        // Implement forgot password logic
-                        context.push("/forgotpassword");
-                      },
+                      onTap: onForgotPasswordButtonPressed,
                       child: const Text(
                         textAlign: TextAlign.right,
                         'Forgot the password?',
@@ -89,9 +114,7 @@ class SignInPage extends HookWidget {
               ),
               const SizedBox(height: 16),
               ElevatedButtonCustomizedWidget(
-                onPressed: () async {
-                  await context.push("/otpcode");
-                },
+                onPressed: onLogInButtonPressed,
                 text: 'Sign in',
               ),
               const SizedBox(height: 24),
@@ -103,9 +126,7 @@ class SignInPage extends HookWidget {
               const ViaSocialMediaWidget(),
               const SizedBox(height: 24),
               GestureDetector(
-                onTap: () {
-                  context.push("/signup");
-                },
+                onTap: onSignUpButtonPressed,
                 child: const Text(
                   "Don't have an account? Sign up",
                   style: TextStyle(color: Colors.blue),

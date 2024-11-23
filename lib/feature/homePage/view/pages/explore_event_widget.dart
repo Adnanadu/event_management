@@ -57,11 +57,10 @@ class ExploreEventWidget extends HookConsumerWidget {
                             onPressed: () async {
                               if (isFavorite.contains(index)) {
                                 ref
-                                    .read(isFavoriteProvider.notifier)
+                                    .watch(isFavoriteProvider.notifier)
                                     .state
                                     .remove(index);
                                 // isFavorite.remove(index);
-                                
                               } else {
                                 ref
                                     .read(isFavoriteProvider.notifier)

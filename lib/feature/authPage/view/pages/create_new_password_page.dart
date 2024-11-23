@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 
 class CreateNewPasswordPage extends HookWidget {
   const CreateNewPasswordPage({super.key});
+  static String routePath = "/newpassword";
 
   @override
   Widget build(BuildContext context) {

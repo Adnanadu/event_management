@@ -9,6 +9,7 @@ class EventDetailsPage extends HookConsumerWidget {
     super.key,
     required this.event,
   });
+  static String routePath = "/eventdetailspage";
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

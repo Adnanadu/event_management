@@ -1,3 +1,4 @@
+import 'package:event_management/feature/authPage/services/auth_services.dart';
 import 'package:event_management/feature/authPage/view/pages/create_new_password_page.dart';
 import 'package:event_management/feature/authPage/view/pages/forgot_password_page.dart';
 import 'package:event_management/feature/authPage/view/pages/otp_code_page.dart';
@@ -14,92 +15,87 @@ import 'package:event_management/feature/profile_page/view/pages/profile_page.da
 import 'package:event_management/feature/dashboardPage/view/pages/dashboard_page.dart';
 import 'package:event_management/feature/homePage/view/pages/home_page.dart';
 import 'package:event_management/feature/ticketPage/view/pages/ticket_page.dart';
+import 'package:event_management/main.dart';
 import 'package:go_router/go_router.dart';
 
 final router = GoRouter(
-  initialLocation: '/homepage',
+  initialLocation: SignInPage.routePath,
+  navigatorKey: EventManagementApp.navigatorkey,
   routes: [
     GoRoute(
-        path: "/profileform",
-        builder: (context, state) => const ProfileFormPage(),
-        name: "profileform"),
-    GoRoute(
-        path: '/homepage',
-        builder: (context, state) => const HomePage(),
-        name: "homepage"),
-    GoRoute(
-        path: '/eventdetails',
-        builder: (context, state) => EventDetailsPage(
-              ///pass event
-              event: state.extra as EventModel,
-            ),
-        name: "eventdetails"),
-    GoRoute(
-        path: '/dashboard',
-        builder: (context, state) => const DashboardPage(),
-        name: "dashboard"),
-    GoRoute(
-        path: "/profile",
-        builder: (context, state) => const ProfilePage(),
-        name: "profile"),
-    GoRoute(
-        path: "/ticket",
-        builder: (context, state) => const TicketPage(),
-        name: "ticket"),
-    GoRoute(
-        path: "/favorite",
-        builder: (context, state) => const FavoritePage(),
-        name: "favorite"),
-    GoRoute(
-        path: "/signin",
-        builder: (context, state) => const SignInPage(),
-        name: "signin"),
-    GoRoute(
-        path: "/signup",
-        builder: (context, state) => const SignUpPage(),
-        name: "signup"),
-    GoRoute(
-        path: "/forgotpassword",
+        path: ForgotPasswordPage.routePath,
         builder: (context, state) => const ForgotPasswordPage(),
         name: "forgotpassword"),
     GoRoute(
-        path: "/otpcode",
+        path: OtpCodePage.routePath,
         builder: (context, state) => const OtpCodePage(),
         name: "otpcode"),
     GoRoute(
-        path: "/newpassword",
+        path: CreateNewPasswordPage.routePath,
         builder: (context, state) => const CreateNewPasswordPage(),
         name: "newpassword"),
-    // GoRoute(
-    //     path: "/dashboard",
-    //     builder: (context, state) => const DashboardPage(),
-    //     name: "dashboard"),
     GoRoute(
-        path: "/eventpage",
-        builder: (context, state) => const CreateEventPage(),
-        name: "eventpage"),
+        path: DashboardPage.routePath,
+        builder: (context, state) => const DashboardPage(),
+        name: "dashboard"),
     GoRoute(
-        path: "/postpage",
+        path: HomePage.routePath,
+        builder: (context, state) => const HomePage(),
+        name: "homepage"),
+    GoRoute(
+        path: ProfilePage.routePath,
+        builder: (context, state) => const ProfilePage(),
+        name: "profilepage"),
+    GoRoute(
+        path: PostPage.routePath,
         builder: (context, state) => const PostPage(),
         name: "postpage"),
     GoRoute(
-        path: "/cartpage",
+        path: CartPage.routePath,
         builder: (context, state) => const CartPage(),
         name: "cartpage"),
+    GoRoute(
+        path: CreateEventPage.routePath,
+        builder: (context, state) => const CreateEventPage(),
+        name: "createeventpage"),
+    GoRoute(
+      path: SignInPage.routePath,
+      builder: (context, state) => const SignInPage(),
+      name: "signin",
+      redirect: (context, state) {
+        final user = AuthServices.getCurrentUserSync();
+        if (user != null) {
+          return HomePage.routePath;
+        }
+        return null;
+      },
+    ),
+
+    GoRoute(
+        path: SignUpPage.routePath,
+        builder: (context, state) => const SignUpPage(),
+        name: "signup"),
+    GoRoute(
+        path: TicketPage.routePath,
+        builder: (context, state) => const TicketPage(),
+        name: "ticketpage"),
+    GoRoute(
+        path: FavoritePage.routePath,
+        builder: (context, state) => const FavoritePage(),
+        name: "favoritepage"),
+    GoRoute(
+        path: ProfileFormPage.routePath,
+        builder: (context, state) => const ProfileFormPage(),
+        name: "profileformpage"),
+    GoRoute(
+        path: EventDetailsPage.routePath,
+        builder: (context, state) => EventDetailsPage(
+              event: state.extra as EventModel,
+            ),
+        name: "eventdetailspage"),
 
     //Pending Pages
-    // GoRoute(
-    //     path: "/payment",
-    //     builder: (context, state) => const PaymentPage(),
-    //     name: "payment"),
-    // GoRoute(
-    //     path: "/payment-success",
-    //     builder: (context, state) => const PaymentSuccessPage(),
-    //     name: "payment-success"),
-
-    // GoRoute(
-    //     path: "/intro",
-    //     builder: (context, state) => const IntroPage(),
-    //     name: "intro"),
+    // GoRoute(path: PaymentPage.routePath, builder: (context, state) => const PaymentPage(), name: "paymentpage"),
+    // GoRoute(path: PaymentSuccessPage.routePath, builder: (context, state) => const PaymentSuccessPage(), name: "paymentsuccesspage"),
   ],
 );

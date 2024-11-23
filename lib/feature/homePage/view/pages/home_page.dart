@@ -9,6 +9,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class HomePage extends HookConsumerWidget {
   const HomePage({super.key});
+  static String routePath = "/homepage";
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

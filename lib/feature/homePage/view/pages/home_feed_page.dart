@@ -1,3 +1,4 @@
+import 'package:event_management/feature/authPage/controller/auth_controller.dart';
 import 'package:event_management/feature/homePage/controller/event_notifier_controller.dart';
 import 'package:event_management/feature/homePage/view/pages/explore_event_widget.dart';
 import 'package:event_management/feature/homePage/view/widgets/ticket_card_widget.dart';
@@ -16,16 +17,20 @@ class HomeFeedPage extends HookConsumerWidget {
   final ValueNotifier<List<String>> filterList;
   final ValueNotifier<String?> selectedFilter;
 
-
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     // final eventNotifier = ref.watch(eventProvider.notifier);
     /// isfavroite is a state provider that allows the user to toggle the favorite status of an event
 
+    void onLogoutPressed() {
+      /// logout is a function that allows the user to logout of the app
+      ref.read(authControllerProvider.notifier).logout();
+    }
+
     return Scaffold(
-      backgroundColor: Colors.black54,
+      backgroundColor: Colors.blue,
       appBar: AppBar(
-        backgroundColor: Colors.black,
+        backgroundColor: Colors.blue,
         leading: const CircleAvatar(
           backgroundImage: AssetImage('assets/images/user.png'),
           radius: 16,
@@ -49,9 +54,12 @@ class HomeFeedPage extends HookConsumerWidget {
         elevation: 0,
         actions: [
           IconButton(
+              onPressed: onLogoutPressed,
+              icon: const Icon(Icons.logout_outlined)),
+          IconButton(
             onPressed: () {},
             icon: Badge.count(
-              backgroundColor: Colors.blue[400],
+              backgroundColor: Colors.amberAccent,
               textColor: Colors.black,
               count: 1,
               child: const Icon(Icons.notifications_outlined),

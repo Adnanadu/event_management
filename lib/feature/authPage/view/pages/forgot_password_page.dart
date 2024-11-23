@@ -6,6 +6,8 @@ import 'package:go_router/go_router.dart';
 class ForgotPasswordPage extends HookWidget {
   const ForgotPasswordPage({super.key});
 
+  static String routePath = "/forgotpassword";
+
   @override
   Widget build(BuildContext context) {
     // State to track selected contact method

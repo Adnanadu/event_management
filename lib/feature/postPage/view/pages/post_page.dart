@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 
 class PostPage extends StatelessWidget {
   const PostPage({super.key});
+  static String routePath = "/postpage";
 
   @override
   Widget build(BuildContext context) {

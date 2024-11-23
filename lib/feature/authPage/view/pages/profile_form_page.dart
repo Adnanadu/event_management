@@ -6,6 +6,7 @@ import 'package:go_router/go_router.dart';
 
 class ProfileFormPage extends HookWidget {
   const ProfileFormPage({super.key});
+  static String routePath = "/profileform";
 
   @override
   Widget build(BuildContext context) {

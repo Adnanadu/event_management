@@ -6,6 +6,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class FavoritePage extends HookConsumerWidget {
   const FavoritePage({super.key});
+   static String routePath = "/favoritepage";
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
