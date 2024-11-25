@@ -15,7 +15,7 @@ class SignUpPage extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    ///Functions
+    // Functions
     // void navigateToSignInPage() {
     //   context.go('/sign_in');
     // }
@@ -37,13 +37,17 @@ class SignUpPage extends HookConsumerWidget {
     // }
 
     void onsignUpButtonPressed() {
+
+      final email = emailController.text;
+      final password = passwordController.text;
+
       if (formKey.currentState!.validate()) {
         ref.read(authControllerProvider.notifier).signUp(
-              email: emailController.text,
-              password: passwordController.text,
+              email: email,
+              password: password,
             );
-        // context.go(ProfileFormPage.routePath);
       }
+      // context.go(ProfileFormPage.routePath);
     }
 
     return Scaffold(

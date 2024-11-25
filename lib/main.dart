@@ -16,12 +16,13 @@ void main() async {
 class EventManagementApp extends StatelessWidget {
   const EventManagementApp({super.key});
   static final navigatorkey = GlobalKey<NavigatorState>();
-  static final scaffoldGeometryKey = GlobalKey<ScaffoldMessengerState>();
+  // static final scaffoldGeometryKey = GlobalKey<ScaffoldMessengerState>();
   static final scaffoldMessengerKey = GlobalKey<ScaffoldMessengerState>();
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp.router(
+      scaffoldMessengerKey: scaffoldMessengerKey,
       routerConfig: router,
       debugShowCheckedModeBanner: false,
     );

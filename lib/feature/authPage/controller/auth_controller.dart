@@ -28,9 +28,8 @@ class AuthController extends _$AuthController {
     if (value == null || value.isEmpty) {
       return "Email is required";
     }
-    final emailRegex = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
-    if (emailRegex.hasMatch(value)) {
-      return "invalid email Format";
+    if (!value.contains("@")) {
+      return "Invalid email format";
     }
     return null;
   }
@@ -85,8 +84,9 @@ class AuthController extends _$AuthController {
       SnackBarUtils.showSnackBar(e.toString());
     }
   }
+
   /// forgot password
-   Future<void> forgotPassword({required String email}) async {
+  Future<void> forgotPassword({required String email}) async {
     try {
       await AuthServices.forgotPassword(email: email);
       SnackBarUtils.showSnackBar("Password reset email sent successfully");
