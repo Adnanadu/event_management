@@ -1,16 +1,15 @@
-import 'package:event_management/feature/homePage/controller/event_notifier_controller.dart';
-import 'package:event_management/feature/homePage/view/pages/explore_event_widget.dart';
+import 'package:event_management/feature/homePage/controller/event_controller_state.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class FavoritePage extends HookConsumerWidget {
   const FavoritePage({super.key});
-   static String routePath = "/favoritepage";
+  static String routePath = "/favoritepage";
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final isFavorite = ref.watch(isFavoriteProvider);
+    // final isFavorite = ref.watch(isFavoriteProvider);
+    final isFavoriteProvider = ref.watch(eventStateProvider);
     return Scaffold(
       appBar: AppBar(
         // leading: IconButton(
@@ -22,7 +21,7 @@ class FavoritePage extends HookConsumerWidget {
       body: ListView.builder(
         shrinkWrap: true,
         physics: const NeverScrollableScrollPhysics(),
-        itemCount: ref.watch(isFavoriteProvider).length,
+        itemCount: isFavoriteProvider.favorites.length,
         itemBuilder: (context, index) {
           return Padding(
             padding: const EdgeInsets.all(8.0),
@@ -31,8 +30,8 @@ class FavoritePage extends HookConsumerWidget {
                 GestureDetector(
                   onTap: () {
                     /// navigate to event description page
-                    final event = ref.read(eventProvider)[index];
-                    context.push('/eventdetails', extra: event);
+                    // final event = isFavoriteProvider.favorites[index];
+                    // context.push('/eventdetails', extra: event);
                   },
                   child: Container(
                     decoration: const BoxDecoration(
@@ -49,30 +48,16 @@ class FavoritePage extends HookConsumerWidget {
                     top: 10,
                     right: 10,
                     child: IconButton(
-                        onPressed: () async {
-                          if (isFavorite.contains(index)) {
-                            ref
-                                .read(isFavoriteProvider.notifier)
-                                .state
-                                .remove(index);
-                            // isFavorite.remove(index);
-                          } else {
-                            ref
-                                .read(isFavoriteProvider.notifier)
-                                .state
-                                .add(index);
-                            // isFavorite.add(index);
-                          }
-                        },
-                        icon: Icon(
-                          ref
-                                  .read(isFavoriteProvider.notifier)
-                                  .state
-                                  .contains(index)
-                              ? Icons.favorite
-                              : Icons.favorite_border_outlined,
-                          color: Colors.red[600],
-                        ))),
+                      onPressed: () {
+                        /// when pressed remove from favorites list
+                        ref.read(eventStateProvider.notifier).removeFavorite(
+                            isFavoriteProvider.favorites[index]);
+                      },
+                      icon: const Icon(
+                        Icons.favorite,
+                        color: Colors.red,
+                      ),
+                    )),
                 Positioned(
                     bottom: 10,
                     left: 10,
@@ -83,19 +68,19 @@ class FavoritePage extends HookConsumerWidget {
                         color: Colors.amber,
                         borderRadius: BorderRadius.all(Radius.circular(25)),
                       ),
-                      child: Column(
+                      child: const Column(
                         mainAxisSize: MainAxisSize.max,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(ref.read(eventProvider)[index].name),
-                          Text(ref.read(eventProvider)[index].location),
+                          // Text(isFavoriteProvider.favorites[index].name),
+                          // Text(isFavoriteProvider.favorites[index].location),
                           Row(
                             mainAxisSize: MainAxisSize.max,
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               /// display date and time from event model
-                              Text(ref.read(eventProvider)[index].date),
-                              Text(ref.read(eventProvider)[index].time),
+                              // Text(ref.read(eventProvider)[index].date),
+                              // Text(ref.read(eventProvider)[index].time),
                             ],
                           ),
                         ],

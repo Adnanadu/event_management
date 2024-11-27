@@ -1,4 +1,4 @@
-import 'package:event_management/feature/homePage/controller/event_notifier_controller.dart';
+import 'package:event_management/feature/homePage/controller/event_controller_state.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:ticket_widget/ticket_widget.dart';
@@ -10,6 +10,7 @@ class TicketCardWidget extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final eventProvider = ref.watch(eventStateProvider);
     return Container(
       decoration: const BoxDecoration(),
       width: double.infinity,
@@ -17,7 +18,7 @@ class TicketCardWidget extends HookConsumerWidget {
       child: ListView.builder(
           scrollDirection: Axis.horizontal,
           shrinkWrap: true,
-          itemCount: ref.read(eventProvider).length,
+          itemCount: eventProvider.events.length,
           itemBuilder: (context, index) {
             return Padding(
               padding: const EdgeInsets.all(8.0),
@@ -41,8 +42,12 @@ class TicketCardWidget extends HookConsumerWidget {
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text(ref.read(eventProvider)[index].name),
-                                Text(ref.read(eventProvider)[index].location),
+                                Text(
+                                  eventProvider.events[index].name.toString(),
+                                  style: const TextStyle(
+                                      fontWeight: FontWeight.bold),
+                                ),
+                                Text(eventProvider.events[index].location),
                               ],
                             ),
                           ],
@@ -77,16 +82,14 @@ class TicketCardWidget extends HookConsumerWidget {
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
-                                      Text(ref.read(eventProvider)[index].date),
-                                      Text(ref.read(eventProvider)[index].time),
+                                      Text(eventProvider.events[index].date),
+                                      Text(eventProvider.events[index].time),
                                     ],
                                   ),
                                 ),
                                 Expanded(
                                   child: Column(children: [
-                                    Text(ref
-                                        .read(eventProvider)[index]
-                                        .location),
+                                    Text(eventProvider.events[index].location),
                                   ]),
                                 ),
                               ],

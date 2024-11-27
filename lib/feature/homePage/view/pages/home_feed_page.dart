@@ -1,12 +1,15 @@
 import 'package:event_management/feature/authPage/controller/auth_controller.dart';
-import 'package:event_management/feature/homePage/controller/event_notifier_controller.dart';
+import 'package:event_management/feature/homePage/controller/event_controller_state.dart';
 import 'package:event_management/feature/homePage/view/pages/explore_event_widget.dart';
 import 'package:event_management/feature/homePage/view/widgets/ticket_card_widget.dart';
+import 'package:event_management/feature/profile_page/model/user_profile_model.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class HomeFeedPage extends HookConsumerWidget {
-  const HomeFeedPage({
+  /// HomeFeedPage is a widget that displays the home feed of the app
+  HomeFeedPage({
     super.key,
     required this.textController,
     required this.filterList,
@@ -16,6 +19,7 @@ class HomeFeedPage extends HookConsumerWidget {
   final TextEditingController textController;
   final ValueNotifier<List<String>> filterList;
   final ValueNotifier<String?> selectedFilter;
+  final isHover = ValueNotifier<bool>(false);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -57,11 +61,14 @@ class HomeFeedPage extends HookConsumerWidget {
               onPressed: onLogoutPressed,
               icon: const Icon(Icons.logout_outlined)),
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              /// navigate to cart page
+              context.push('/cart');
+            },
             icon: Badge.count(
               backgroundColor: Colors.amberAccent,
               textColor: Colors.black,
-              count: 1,
+              count: ref.watch(eventStateProvider).events.length,
               child: const Icon(Icons.notifications_outlined),
             ),
           ),
@@ -71,6 +78,7 @@ class HomeFeedPage extends HookConsumerWidget {
         padding: const EdgeInsets.all(8.0),
         child: SingleChildScrollView(
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               /// search bar
               /// search bar is a widget that allows the user to search for a specific item
@@ -95,8 +103,8 @@ class HomeFeedPage extends HookConsumerWidget {
                 child: ListView.builder(
                   shrinkWrap: true,
                   scrollDirection: Axis.horizontal,
-                  // itemCount: filterList.value.length,
-                  itemCount: ref.watch(eventProvider).length,
+                  // itemCount: ref.watch(eventProvider).length,
+                  itemCount: 3,
                   itemBuilder: (BuildContext context, int index) {
                     return Padding(
                       padding: const EdgeInsets.symmetric(
@@ -129,8 +137,6 @@ class HomeFeedPage extends HookConsumerWidget {
               const TicketCardWidget(),
               const Text("Explore", style: TextStyle(fontSize: 20)),
               const ExploreEventWidget(),
-
-              const Text('Home Page'),
             ],
           ),
         ),

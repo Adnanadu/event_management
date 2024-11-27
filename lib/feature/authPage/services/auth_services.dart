@@ -1,4 +1,4 @@
-import 'package:event_management/core/utils/snackbar_utils/snackbar_utils.dart';
+
 import 'package:firebase_auth/firebase_auth.dart';
 
 class AuthServices {

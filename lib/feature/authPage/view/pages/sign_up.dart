@@ -1,6 +1,5 @@
 import 'package:event_management/core/widgets/elevated_button_customized_widget.dart';
 import 'package:event_management/feature/authPage/controller/auth_controller.dart';
-import 'package:event_management/feature/authPage/view/pages/profile_form_page.dart';
 import 'package:event_management/feature/authPage/view/pages/sign_in_page.dart';
 import 'package:event_management/feature/authPage/view/widgets/via_social_media_widget.dart';
 import 'package:flutter/material.dart';
@@ -37,7 +36,6 @@ class SignUpPage extends HookConsumerWidget {
     // }
 
     void onsignUpButtonPressed() {
-
       final email = emailController.text;
       final password = passwordController.text;
 

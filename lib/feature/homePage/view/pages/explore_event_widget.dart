@@ -1,21 +1,15 @@
-import 'package:event_management/feature/homePage/controller/event_notifier_controller.dart';
+import 'package:event_management/feature/homePage/controller/event_controller_state.dart';
 import 'package:flutter/material.dart';
-// import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-final isFavoriteProvider = StateProvider<List>((ref) {
-  return [];
-});
-
-class ExploreEventWidget extends HookConsumerWidget {
+class ExploreEventWidget extends ConsumerWidget {
   const ExploreEventWidget({
     super.key,
   });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final isFavorite = ref.watch(isFavoriteProvider.notifier).state;
+    final eventProvider = ref.watch(eventStateProvider);
     return StreamBuilder(
       stream: Stream.value(null),
       builder: (context, snapshot) {
@@ -27,7 +21,8 @@ class ExploreEventWidget extends HookConsumerWidget {
           return ListView.builder(
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
-            itemCount: ref.watch(eventProvider).length,
+            // itemCount: ref.watch(eventProvider).length,
+            itemCount: eventProvider.events.length,
             itemBuilder: (context, index) {
               return Padding(
                 padding: const EdgeInsets.all(8.0),
@@ -36,8 +31,8 @@ class ExploreEventWidget extends HookConsumerWidget {
                     GestureDetector(
                       onTap: () {
                         /// navigate to event description page
-                        final event = ref.read(eventProvider)[index];
-                        context.push('/eventdetails', extra: event);
+                        // final event = ref.read(eventProvider)[index];
+                        // context.push('/eventdetails', extra: event);
                       },
                       child: Container(
                         decoration: const BoxDecoration(
@@ -51,33 +46,33 @@ class ExploreEventWidget extends HookConsumerWidget {
                       ),
                     ),
                     Positioned(
-                        top: 10,
-                        right: 10,
-                        child: IconButton(
-                            onPressed: () async {
-                              if (isFavorite.contains(index)) {
-                                ref
-                                    .watch(isFavoriteProvider.notifier)
-                                    .state
-                                    .remove(index);
-                                // isFavorite.remove(index);
-                              } else {
-                                ref
-                                    .read(isFavoriteProvider.notifier)
-                                    .state
-                                    .add(index);
-                                // isFavorite.add(index);
-                              }
-                            },
-                            icon: Icon(
-                              ref
-                                      .read(isFavoriteProvider.notifier)
-                                      .state
-                                      .contains(index)
-                                  ? Icons.favorite
-                                  : Icons.favorite_border_outlined,
-                              color: Colors.red[600],
-                            ))),
+                      top: 10,
+                      right: 10,
+                      child: IconButton(
+                        onPressed: () async {
+                          ///when i click this button it check if it is favorite or not
+                          ///if it is favorite then remove favorite
+                          final eventId = eventProvider
+                              .events[index].id; // Get the event ID
+                          if (eventProvider.favorites.contains(eventId)) {
+                            ref
+                                .read(eventStateProvider.notifier)
+                                .removeFavorite(eventId);
+                          } else {
+                            ref
+                                .read(eventStateProvider.notifier)
+                                .addFavorite(eventId);
+                          }
+                        },
+
+                        ///when i tap this icon, if it is change from favorite icon to favrite outline
+                        icon: eventProvider.favorites
+                                .contains(eventProvider.events[index].id)
+                            ? const Icon(Icons.favorite,
+                                color: Colors.red) // Change color to red
+                            : const Icon(Icons.favorite_border),
+                      ),
+                    ),
                     Positioned(
                         bottom: 10,
                         left: 10,
@@ -92,16 +87,16 @@ class ExploreEventWidget extends HookConsumerWidget {
                             mainAxisSize: MainAxisSize.max,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text(ref.read(eventProvider)[index].name),
-                              Text(ref.read(eventProvider)[index].location),
+                              Text(eventProvider.events[index].name),
+                              Text(eventProvider.events[index].location),
                               Row(
                                 mainAxisSize: MainAxisSize.max,
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: [
                                   /// display date and time from event model
-                                  Text(ref.read(eventProvider)[index].date),
-                                  Text(ref.read(eventProvider)[index].time),
+                                  Text(eventProvider.events[index].date),
+                                  Text(eventProvider.events[index].time),
                                 ],
                               ),
                             ],

@@ -1,3 +1,4 @@
+import 'package:event_management/feature/profile_page/model/user_profile_model.dart';
 import 'package:event_management/feature/profile_page/view/widgets/profile_field_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -16,6 +17,16 @@ class ProfilePage extends HookWidget {
     final emailController = useTextEditingController();
     final phoneController = useTextEditingController();
     final gender = useState<String>('Select Gender');
+
+    UserProfileModel(
+        name: fullNameController.text,
+        username: usernameController.text,
+        dateOfBirth: dateOfBirthController.text,
+        email: emailController.text,
+        phoneNumber: phoneController.text,
+        gender: gender.value);
+
+        
 
     // Editable state
     final isEditing = useState(false);

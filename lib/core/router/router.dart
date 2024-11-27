@@ -25,8 +25,7 @@ final router = GoRouter(
     GoRoute(
         path: ForgotPasswordPage.routePath,
         builder: (context, state) => const ForgotPasswordPage(),
-        name: "forgotpassword"
-        ),
+        name: "forgotpassword"),
     GoRoute(
         path: OtpCodePage.routePath,
         builder: (context, state) => const OtpCodePage(),
